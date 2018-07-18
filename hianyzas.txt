@@ -1,0 +1,92 @@
+/*
+A feladat: 
+
+ https://www.oktatas.hu/kozneveles/erettsegi/feladatsorok/emelt_szint_2017osz/emelt_8nap
+
+ http://dload.oktatas.educatio.hu/erettsegi/feladatok_2017osz_emelt/e_inf_17okt_fl.pdf
+ */
+
+
+package _2017_okt_e_.hianyzasok;
+
+import java.util.*;
+import java.io.*;
+
+
+public class _2017_okt_e_Hianyzasok {
+
+    public static String hetnapja(int honap, int nap){
+        String[] napnev = {"vasarnap", "hetfo", "kedd", "szerda", "csutortok","pentek", "szombat"};
+        int[] napszam = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 335};
+        int napsorszam = (napszam[honap - 1] + nap) % 7;
+        return napnev[napsorszam] ;
+    }
+    
+    public static void main(String[] args) {
+        
+        String[] nev = new String[50];
+        int[] ho = new int[50];
+        int[] nap = new int[50];
+        String[] hianyzas = new String[50];
+        int aktHo=-1;
+        int aktNap=-1;
+        
+        int db=0;
+        String[] daraboltSor;
+        try {
+            RandomAccessFile raf = new RandomAccessFile("naplo.txt", "r");
+            String sor;
+            while((sor=raf.readLine())!=null)
+            {
+                daraboltSor=sor.split(" ");
+                if (daraboltSor[0].equals("#")) {
+                    aktHo = Integer.parseInt(daraboltSor[1]);
+                    aktNap = Integer.parseInt(daraboltSor[2]);
+                }
+                else
+                {
+                    db++;
+                    ho[db-1] = aktHo;
+                    nap[db-1] = aktNap;
+                    nev[db-1] = daraboltSor[0]+" "+daraboltSor[1];
+                    hianyzas[db-1] = daraboltSor[2];
+                }
+            }
+            raf.close();
+        } catch (Exception e) {
+        }
+        
+        System.out.println("2. feladat\nA naplóban "+db+" bejegyzés van.");
+        
+        System.out.println("3. feladat");
+        int ig_db=0;
+        int igLatlan_db=0;
+        String aktBejegyzes="";
+        //char betu;
+        
+        for (int i = 0; i < db; i++) {
+            char betu=hianyzas[i].charAt(0);
+            for (int j = 0; j < 7; j++) {
+                System.out.println(hianyzas[i]);
+                //char betu=hianyzas[i].charAt(j);
+                
+//                if(betu=='X')
+//                {
+//                    ig_db++;
+//                }
+//                if(betu=='I')
+//                {
+//                    igLatlan_db++;
+//                }
+            }
+            
+        }
+        System.out.println("Az igazolt hiányzások száma " + ig_db + ", az igazolatlanoké " + igLatlan_db + " óra.\n");
+
+        System.out.println("5. feladat");
+        
+        
+        
+    }
+    
+}
